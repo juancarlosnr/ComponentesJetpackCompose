@@ -33,8 +33,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+                    //State hoisting
+                    var myText by remember { mutableStateOf("Juan") }
                     Column(Modifier.fillMaxWidth()) {
-                        MyTextFieldOutlined()
+                        MyTextField(myText){myText = it}
                     }
 
                 }
@@ -85,9 +87,8 @@ fun MyTextFieldAdvance() {
 }
 
 @Composable
-fun MyTextField() {
-    var myText by remember { mutableStateOf("Juan") }
-    TextField(value = myText, onValueChange = { myText = it })
+fun MyTextField(name:String,onValueChanged:(String) -> Unit ) {
+    TextField(value = name, onValueChange = {onValueChanged(it)})
 }
 
 @Composable
